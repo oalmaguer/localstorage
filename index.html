@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>holaaaa</h1>
+    <input type="text" id="nombre">
+    <input type="text" id="vida">
+
+    <button class="btn">Click</button>
+    <button class="btnClear">Clear</button>
+
+    <div id="result" class="container" style="display: inline;">
+        <div class="row">
+            <div class="col justify-content-around">
+
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+                    $(document).ready(function() {
+
+                    var nombreLocal = localStorage.getItem('nombre');
+                    var vidaLocal = localStorage.getItem('vida');
+                    var storedNames = JSON.parse(localStorage.getItem('nombre'));
+                    var storedVida = JSON.parse(localStorage.getItem('vida'));
+
+                        if (storedNames != null) {
+
+                            storedNames.forEach((element, index) => {
+                                $(".col").append(`
+                                <div class="card" style="width: 18rem; padding: 10px; margin: 1rem; display:inline-block; ">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${element}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">${storedVida[index]}</h6>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                        </div>
+                                        </div>
+                                        `);
+                                    });
+                                } 
+                        
+                    
+        class Personaje  {
+            constructor(nombre, vida) {
+                this.nombre = nombre;
+                this.vida = vida;
+
+
+                this.getData = function() {
+                    console.log(`Nombre es ${this.nombre} y tiene ${this.vida} de vida`);
+                }
+
+                
+                this.printData = function() {
+
+                  
+
+                    var counter = Math.floor(Math.random()*10000);
+                    $(".col").append(`
+                    <div class="card" style="width: 18rem; padding: 10px; margin: 1rem; display:inline-block; ">
+                        <div class="card-body">
+                            <h5 class="card-title" id="${counter}">${this.nombre}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${this.vida}</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                        </div>
+                        `);
+                }
+            }
+        }
+
+        var localArray = [];
+        var localArray2 = [];
+
+        $(".btn").click(function() {
+            var pNombre = $("#nombre").val();
+            var pVida = $("#vida").val();
+            if (JSON.parse(localStorage.getItem('nombre')) != null) {
+                var storedNamesBtn = JSON.parse(localStorage.getItem('nombre'));
+            } else {
+                var storedNamesBtn = [];
+            }
+
+            if (JSON.parse(localStorage.getItem('vida')) != null) {
+            var storedVidaBtn = JSON.parse(localStorage.getItem('vida'));
+            } else {
+                var storedVidaBtn = [];
+            }
+            console.log(storedNamesBtn);
+            
+            // if (localArray != '') {
+            //     localArray.push(storedNames.join(''));
+
+            // } else if (localArray2 != '') {
+            //     localArray2.push(storedVida.join(''));
+            // }
+            storedNamesBtn.push(pNombre);
+            storedVidaBtn.push(pVida);
+            const nuevoP = new Personaje(pNombre, pVida);
+            nuevoP.getData();
+            nuevoP.printData();
+            localStorage.setItem('nombre', JSON.stringify(storedNamesBtn));
+            localStorage.setItem('vida', JSON.stringify(storedVidaBtn));
+            console.log(localArray);
+        })
+
+        $('.btnClear').click(function() {
+            localStorage.clear();
+            location.reload();
+        })
+    })
+
+
+    </script>
+</body>
+</html>
